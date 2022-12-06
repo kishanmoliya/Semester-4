@@ -4,5 +4,15 @@ import 'dart:io';
 
 void main() {
   stdout.write("Enter the Number = ");
-  String numb = (stdin.readLineSync()!);
+  int numb = int.parse(stdin.readLineSync()!);
+
+  int rem;
+  int reverse = 0;
+  while (numb > 0) {
+    rem = numb % 10;
+    reverse = reverse * 10 + rem;
+    numb = numb ~/ 10;
+  }
+  print(reverse);
 }
+
