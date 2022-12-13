@@ -7,17 +7,25 @@ import 'dart:io';
 void main(List<String> args) {
   stdout.write("Enter the Number = ");
   int? n = int.parse(stdin.readLineSync()!);
-  check(n);
+
+  primeNum pr = primeNum();
+
+  pr.check(n);
+  print(pr.temp == 1 && n != 0 && n != 1
+      ? "$n is a Prime Number"
+      : "$n is Not a Prime Number");
 }
 
-check(int n) {
-  bool flage = true;
-  for (int i = 2; i <= n / 2; i++) {
-    if (n % i == 0) {
-      flage = false;
-      break;
-    }
-  }
+class primeNum {
+  int temp = 1;
 
-  print(flage && n != 0 && n != 1 ? "Number is Prime" : "Number is Not Prime");
+  int check(int n) {
+    for (int i = 2; i <= n / 2; i++) {
+      if (n % i == 0) {
+        this.temp = 0;
+        break;
+      }
+    }
+    return this.temp;
+  }
 }
