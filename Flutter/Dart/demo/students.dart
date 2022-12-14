@@ -31,23 +31,49 @@ class Students {
     }
   }
 
-  getById(id) {
-    Map<String, dynamic> stu = stuList[(id - 1)];
-    if (stu['student_id'] == id) {
-      print("Student Id : ${stu['student_id']}");
-      print("Student Name : ${stu['student_name']}");
-      print("Student Age : ${stu['student_age']}\n");
-    } else {
-      print("Student Not Found!");
+  getById(name) {
+    for (int i = 0; i < stuList.length; i++) {
+      Map<String, dynamic> stu = stuList[i];
+
+      if (name.toString().toLowerCase() ==
+          stu["student_name"].toString().toLowerCase()) {
+        print("Student Id : ${stu['student_id']}");
+        print("Student Name : ${stu['student_name']}");
+        print("Student Age : ${stu['student_age']}\n");
+      } else {
+        print("Student Not Found!");
+      }
     }
   }
 
-  delete(id) {
-    Map<String, dynamic> stu = stuList[(id - 1)];
-    if (stu['student_id'] == id) {
-      stuList.remove(stuList[id]);
-    } else {
-      print("Student Not Found");
+  delete(name) {
+    for (int i = 0; i < stuList.length; i++) {
+      Map<String, dynamic> stu = stuList[i];
+
+      if (name.toString().toLowerCase() ==
+          stu["student_name"].toString().toLowerCase()) {
+        stuList.remove(stuList[i]);
+      } else {
+        print("Student Not Found");
+      }
+    }
+  }
+
+  update(name) {
+    for (int i = 0; i < stuList.length; i++) {
+      Map<String, dynamic> stu = stuList[i];
+
+      if (name.toString().toLowerCase() ==
+          stu["student_name"].toString().toLowerCase()) {
+        stdout.write("Enter the Id : ");
+        stu["student_id"] = stdin.readLineSync();
+        stdout.write("Enter the Name : ");
+        stu["student_name"] = stdin.readLineSync();
+        stdout.write("Enter the Age : ");
+        stu["student_age"] = stdin.readLineSync();
+      } else {
+        print("Student Not Found!");
+      }
     }
   }
 }

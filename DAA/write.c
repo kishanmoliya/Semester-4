@@ -6,7 +6,7 @@ void main(){
 	
 	fp = fopen("demo5.txt", "w");
 	
-	for(i=0; i<200; i++){
+	for(i=0; i<100; i++){
 		fprintf(fp, "%d\n", rand());
 	}
 }
