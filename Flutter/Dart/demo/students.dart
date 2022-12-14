@@ -45,7 +45,7 @@ class Students {
   delete(id) {
     Map<String, dynamic> stu = stuList[(id - 1)];
     if (stu['student_id'] == id) {
-      stuList.remove(stuList[0]);
+      stuList.remove(stuList[id]);
     } else {
       print("Student Not Found");
     }
