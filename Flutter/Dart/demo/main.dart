@@ -50,26 +50,18 @@ void main(List<String> args) {
 
       case 2:
         {
-          // if (flag == "y") {
           stdout.write("Enter the Student Id = ");
           int id = int.parse(stdin.readLineSync()!);
           student.getById(id);
-          // } else {
-          //   print("Ok No Problem");
-          // }
         }
         break;
 
       case 3:
         {
-          // if (temp == "y") {
           stdout.write("Enter the Student Id = ");
           int id = int.parse(stdin.readLineSync()!);
           student.delete(id);
           student.displayStudentDetails();
-          // } else {
-          //   print("Ok No Problem");
-          // }
         }
         break;
 
