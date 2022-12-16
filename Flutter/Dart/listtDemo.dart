@@ -10,7 +10,8 @@ void main() {
 
   print(list);
   print("First Element of List is = ${list[0]['abc']}");
-  print("Lenght of List = ${map.length}");
+  print("Lenght of List = ${list.length}");
+  print("Lenght of Map = ${map.length}");
   list.remove(list[0]);
   print(list);
 }
