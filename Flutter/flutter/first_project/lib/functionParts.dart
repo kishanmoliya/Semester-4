@@ -19,12 +19,12 @@ class _FunctoinPartsState extends State<FunctoinParts> {
             ),
             Expanded(
               child: Row(
-                children: getBox(3,color:[Colors.purple, Colors.teal, Colors.teal]),
+                children: getBox(3,color:[Colors.pinkAccent, Colors.lightBlueAccent, Colors.green]),
               ),
             ),
             Expanded(
               child: Row(
-                children: getBox(4,color:[Colors.purple, Colors.teal, Colors.teal, Colors.teal]),
+                children: getBox(4,color:[Colors.yellow, Colors.deepOrange, Colors.blueAccent, Colors.indigoAccent]),
               ),
             ),
           ],
