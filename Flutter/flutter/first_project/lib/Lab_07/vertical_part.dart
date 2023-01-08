@@ -7,9 +7,9 @@ class VerticalPart extends StatelessWidget{
       body: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Expanded(child: Container(color: Colors.red,),flex: 2),
-          Expanded(child: Container(color: Colors.green,)),
-          Expanded(child: Container(color: Colors.yellow,)),
+          Expanded(child: Container(color: Colors.red,),),
+          Expanded(child: Container(color: Colors.green,),),
+          Expanded(child: Container(color: Colors.yellow,),),
         ],
       ),
     );

@@ -33,19 +33,12 @@ class _SimpleInterest extends State<SimpleInterest> {
         child: Column(
           children: [
             Container(
-              //color: Colors.deepOrange,
-              margin: const EdgeInsets.only(top: 15),
-              padding: const EdgeInsets.all(3.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blueAccent),
-                borderRadius: BorderRadius.all(Radius.circular(5.5)),
-              ),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              alignment: Alignment.center,
               child: const Text(
                 'Simple Interest Calculator',
                 style: TextStyle(
                   fontSize: 30,
-                  backgroundColor: Colors.lightBlue,
-                  color: Colors.white,
                 ),
               ),
             ),
@@ -61,16 +54,16 @@ class _SimpleInterest extends State<SimpleInterest> {
                       'Time Period : ', 'Enter Time', false, _timeController),
                   Container(
                     margin: EdgeInsets.only(top: 10),
+                    color: Colors.green,
                     child: TextButton(
                       onPressed: () {
                         displayDetails();
                       },
-                      child: Text(
+                      child: const Text(
                         'Calculate',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    color: Colors.green,
                   ),
                   getInput('Principal Amount : ', principalAmount.toString(),
                       true, null),
@@ -93,8 +86,10 @@ class _SimpleInterest extends State<SimpleInterest> {
     double time = double.parse(_timeController.text);
 
     principalAmount = amount;
-    totalInterest = amount*roi*time/100;
+    totalInterest = amount * roi * time / 100;
     totalAmount = principalAmount + totalInterest;
+
+    setState(() {});
   }
 
   Widget getInput(
@@ -113,16 +108,17 @@ class _SimpleInterest extends State<SimpleInterest> {
                   flex: 2,
                 )
               : Expanded(
+                  flex: 3,
                   child: TextField(
                     controller: controller,
-                    decoration: new InputDecoration(
-                      border: new OutlineInputBorder(
+                    decoration: InputDecoration(
+                      labelText: holder,
+                      border: OutlineInputBorder(
                         borderSide: new BorderSide(color: Colors.teal),
                       ),
-                      hintText: holder,
+                      // hintText: holder,
                     ),
                   ),
-                  flex: 3,
                 ),
         ],
       ),

@@ -55,7 +55,7 @@ class NineEqualParts_2 extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.all(5),
                     color: Colors.lightGreen,
                   ),
                 ),

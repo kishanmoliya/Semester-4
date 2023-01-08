@@ -28,7 +28,7 @@ class ImageParts extends StatelessWidget {
                     flex: 2,
                     child: Container(
                       margin: EdgeInsets.all(7),
-                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      padding: EdgeInsets.all(5),
                       color: Colors.indigo,
                       child: Image.asset('assets/images/metrimony1.jpg',fit: BoxFit.cover),
                     ),
@@ -36,7 +36,7 @@ class ImageParts extends StatelessWidget {
                   Expanded(
                     child: Container(
                       margin: EdgeInsets.all(7),
-                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      padding: EdgeInsets.all(5),
                       color: Colors.indigo,
                       child: Image.asset('assets/images/metrimony1.jpg',fit: BoxFit.cover),
                     ),
