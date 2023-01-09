@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FullDetails extends StatefulWidget {
-  FullDetails(Map userList);
+  dynamic map;
 
-  // dynamic Name;
-  // dynamic City;
-  // dynamic Age;
-  // FullDetails(List<Map> userList, {super.key, this.Name, this.City, this.Age});
+  FullDetails({super.key, this.map});
 
-  @override
   State<FullDetails> createState() => _FullDetailsState();
 }
 
@@ -19,7 +16,28 @@ class _FullDetailsState extends State<FullDetails> {
       appBar: AppBar(
         title: Text('App Bar.'),
       ),
-      body: Text("Hello"),
+      // Text(widget.map['City']
+      body: Card(
+        elevation: 20,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(child: CircleAvatar(radius: 65,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: AssetImage(widget.map['Image']), radius: 60,)),margin: EdgeInsets.all(20)),
+            Text(
+              "User Name: " + widget.map['Name'],
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            Text(
+              "City: " + widget.map['City'],
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            Text(
+              "Age: " + ('${widget.map['Age']}'),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

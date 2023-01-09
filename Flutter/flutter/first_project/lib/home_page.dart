@@ -1,5 +1,6 @@
 import 'package:first_project/Lab_07/Lab_7.dart';
 import 'package:first_project/Lab_08/lab_8.dart';
+import 'package:first_project/Lab_09/lab_9.dart';
 import 'package:first_project/Projects/projects.dart';
 import 'package:flutter/material.dart';
 
@@ -22,8 +23,9 @@ class _HomePageState extends State<HomePage> {
 
           card.getHeading("All Flutter Pages"),
 
-          card.getUI(context, Lab7(), "1. Lab 7"),
-          card.getUI(context, Lab8(), "2. Lab 8"),
+          card.getUI(context, Lab7(), "Lab 7"),
+          card.getUI(context, Lab8(), "Lab 8"),
+          card.getUI(context, Lab9(), "Lab 9"),
           card.getUI(context, Project(), "# Projects #"),
         ],
       ),

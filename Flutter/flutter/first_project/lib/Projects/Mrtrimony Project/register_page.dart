@@ -71,7 +71,7 @@ class _RegisterPage extends State<RegisterPage> {
                   setState(() {});
                 },
                 child: const Text(
-                  'Register',
+                  'Create an Account',
                   style: TextStyle(color: Colors.white),
                 ),
               ),

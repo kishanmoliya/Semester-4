@@ -14,7 +14,7 @@ class _UserListPageState extends State<UserListPage> {
     userList.clear();
     Map<String, dynamic> user = {};
     user["UserId"] = 1;
-    user["Image"] = Image.asset('assets/images/person1.jfif');
+    user["Image"] = 'assets/images/person1.jfif';
     user['Name'] = 'Raju';
     user['City'] = 'Jamsedpur';
     user['Age'] = 25;
@@ -22,7 +22,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 2;
-    user["Image"] = Image.asset('assets/images/person2.jfif');
+    user["Image"] = 'assets/images/person2.jfif';
     user['Name'] = 'Kaju';
     user['City'] = 'Amerika';
     user['Age'] = 30;
@@ -30,7 +30,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 3;
-    user["Image"] = Image.asset('assets/images/person3.jfif');
+    user["Image"] = 'assets/images/person3.jfif';
     user['Name'] = 'Chagan';
     user['City'] = 'china';
     user['Age'] = 22;
@@ -38,7 +38,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 4;
-    user["Image"] = Image.asset('assets/images/person4.jfif');
+    user["Image"] = 'assets/images/person4.jfif';
     user['Name'] = 'Magan';
     user['City'] = 'Russ';
     user['Age'] = 23;
@@ -46,7 +46,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 5;
-    user["Image"] = Image.asset('assets/images/person5.jfif');
+    user["Image"] = 'assets/images/person5.jfif';
     user['Name'] = 'Rohan';
     user['City'] = 'US';
     user['Age'] = 27;
@@ -54,7 +54,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 6;
-    user["Image"] = Image.asset('assets/images/person6.jfif');
+    user["Image"] = 'assets/images/person6.jfif';
     user['Name'] = 'Yash';
     user['City'] = 'JamKandola';
     user['Age'] = 21;
@@ -62,7 +62,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 7;
-    user["Image"] = Image.asset('assets/images/person7.jfif');
+    user["Image"] = 'assets/images/person7.jfif';
     user['Name'] = 'Hardik';
     user['City'] = 'MahikaState';
     user['Age'] = 19;
@@ -70,7 +70,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 8;
-    user["Image"] = Image.asset('assets/images/person8.jfif');
+    user["Image"] = 'assets/images/person8.jfif';
     user['Name'] = 'Sanjay';
     user['City'] = 'Bombey';
     user['Age'] = 22;
@@ -78,7 +78,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 9;
-    user["Image"] = Image.asset('assets/images/person9.jfif');
+    user["Image"] = 'assets/images/person9.jfif';
     user['Name'] = 'Vinay';
     user['City'] = 'PostOffice';
     user['Age'] = 28;
@@ -86,7 +86,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 10;
-    user["Image"] = Image.asset('assets/images/person10.jfif');
+    user["Image"] = 'assets/images/person10.jfif';
     user['Name'] = 'Javed';
     user['City'] = 'Brazil';
     user['Age'] = 30;
@@ -94,7 +94,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 11;
-    user["Image"] = Image.asset('assets/images/person11.jfif');
+    user["Image"] = 'assets/images/person11.jfif';
     user['Name'] = 'Gani';
     user['City'] = 'PanchMahal';
     user['Age'] = 31;
@@ -102,7 +102,7 @@ class _UserListPageState extends State<UserListPage> {
 
     user = {};
     user["UserId"] = 12;
-    user["Image"] = Image.asset('assets/images/person12.jfif');
+    user["Image"] = 'assets/images/person12.jfif';
     user['Name'] = 'Manish';
     user['City'] = 'Colambiya';
     user['Age'] = 40;
@@ -167,7 +167,7 @@ class _UserListPageState extends State<UserListPage> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: ((context) {
-                                    return FullDetails(userList[index]);
+                                    return FullDetails(map:userList[index]);
                                   }),
                                 ),
                               );
@@ -186,44 +186,6 @@ class _UserListPageState extends State<UserListPage> {
                           ),
                         ],
                       ),
-
-                      // CircleAvatar(
-                      //   backgroundColor: Colors.black,
-                      //   radius: 116,
-                      //   child: CircleAvatar(
-                      //       backgroundImage: AssetImage(foodList[index]['Image']),
-                      //       radius: 110),
-                      // ),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: userList[index]['Image'],
-                      //     ),
-                      //     Expanded(
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment.start,
-                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                      //         children: [
-                      //           Text(
-                      //             "User Name: " + userList[index]['Name'],
-                      //             style: TextStyle(
-                      //                 fontWeight: FontWeight.bold, fontSize: 18),
-                      //           ),
-                      //           Text(
-                      //             "City: " + userList[index]['City'],
-                      //             style: TextStyle(
-                      //                 fontWeight: FontWeight.bold, fontSize: 18),
-                      //           ),
-                      //           Text(
-                      //             "Age: " + ('${userList[index]['Age']}'),
-                      //             style: TextStyle(
-                      //                 fontWeight: FontWeight.bold, fontSize: 18),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 );
