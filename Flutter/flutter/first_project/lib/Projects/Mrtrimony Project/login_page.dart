@@ -1,3 +1,4 @@
+import 'package:first_project/Projects/Mrtrimony%20Project/user_list_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -6,8 +7,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
-  TextEditingController nameControlar = TextEditingController();
-  TextEditingController passWordControlar = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passWordController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
 
@@ -35,7 +36,7 @@ class _LoginPage extends State<LoginPage> {
               Card(
                 elevation: 15,
                 child: TextFormField(
-                  controller: nameControlar,
+                  controller: nameController,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -63,7 +64,7 @@ class _LoginPage extends State<LoginPage> {
               Card(
                 elevation: 10,
                 child: TextFormField(
-                  controller: passWordControlar,
+                  controller: passWordController,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -97,8 +98,6 @@ class _LoginPage extends State<LoginPage> {
                   ],
                 ),
               ),
-              const Text("note: * Fields are mandatory.",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
 
               Container(
                 margin: EdgeInsets.only(top: 10),
@@ -107,7 +106,13 @@ class _LoginPage extends State<LoginPage> {
                   onPressed: () {
                     setState(() {
                       if(formKey.currentState!.validate()){
-
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: ((context) {
+                              return UserListPage();
+                            }),
+                          ),
+                        );
                       }
                     });
                   },

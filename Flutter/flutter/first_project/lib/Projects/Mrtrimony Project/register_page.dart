@@ -1,3 +1,4 @@
+import 'package:first_project/Projects/Mrtrimony%20Project/login_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -6,9 +7,11 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPage extends State<RegisterPage> {
-  //TextEditingController firstNameControlar = TextEditingController();
-  //TextEditingController lastNameControlar = TextEditingController();
-  //TextEditingController passWordControlar = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passWordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,35 +24,28 @@ class _RegisterPage extends State<RegisterPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Name Field.
-            getField("Enter First Name*"),
-            getCard("First Name"),
+            //First Name Field.
+            getField("Enter Name*"),
+            getCard("Name", nameController),
 
-            getField("Enter Last Name*"),
-            getCard("Last Name"),
-            // getField("Enter Last Name"),
-            // getCard("Last Name", lastNameControlar.text),
+            //City Field.
+            getField("Enter City*"),
+            getCard("City", cityController),
 
+            //Age Field
+            getField("Enter Age*"),
+            getCard("Age", ageController),
 
-            // Card(
-            //   elevation: 15,
-            //   child: TextFormField(
-            //     controller: nameControlar,
-            //     onChanged: (value) {
-            //       setState(() {});
-            //     },
-            //     decoration: const InputDecoration(
-            //       labelText: "Name",
-            //       border: OutlineInputBorder(),
-            //     ),
-            //   ),
-            // ),
+            //Email Field
+            getField("Enter Email*"),
+            getCard("Email", emailController),
 
             //PassWord Field
             getField("Enter PassWord*"),
             Card(
               elevation: 10,
               child: TextFormField(
+                controller: passWordController,
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: "PassWord",
@@ -59,11 +55,38 @@ class _RegisterPage extends State<RegisterPage> {
             ),
             const Text("note: * Fields are mandatory.",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              color: Colors.green,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: ((context) {
+                        return LoginPage();
+                      }),
+                    ),
+                  );
+                  setState(() {});
+                },
+                child: const Text(
+                  'Register',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            // Column(
+            //   children: [
+            //     Text(userList[1]["City"]),
+            //   ],
+            // ),
           ],
         ),
       ),
     );
   }
+
   Widget getField(String field) {
     return Container(
       margin: EdgeInsets.only(top: 12),
@@ -74,10 +97,11 @@ class _RegisterPage extends State<RegisterPage> {
     );
   }
 
-  Widget getCard(String tLable,){
+  Widget getCard(String tLable, controller) {
     return Card(
       elevation: 15,
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           labelText: tLable,
           border: OutlineInputBorder(),
