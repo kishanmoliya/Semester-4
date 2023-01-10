@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   getCard card = getCard();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,9 +21,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           card.getHeading("All Flutter Pages"),
-
           card.getUI(context, Lab7(), "Lab 7"),
           card.getUI(context, Lab8(), "Lab 8"),
           card.getUI(context, Lab9(), "Lab 9"),
@@ -33,8 +32,8 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class getCard{
-  Widget getHeading(String heading){
+class getCard {
+  Widget getHeading(String heading) {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
       padding: EdgeInsets.all(8),
@@ -54,7 +53,7 @@ class getCard{
 
   Widget getUI(context, dynamic navigate, String name) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+      margin: EdgeInsets.all(6),
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
@@ -70,6 +69,7 @@ class getCard{
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black26),
+              borderRadius: BorderRadius.circular(7),
             ),
             alignment: Alignment.topLeft,
             padding: EdgeInsets.all(10),

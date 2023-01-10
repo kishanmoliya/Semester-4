@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter',
 
-      home: LoginPage(),
+      home: HomePage(),
     );
   }
 }
