@@ -7,6 +7,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPage extends State<RegisterPage> {
+
   TextEditingController nameController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController ageController = TextEditingController();
@@ -22,76 +23,78 @@ class _RegisterPage extends State<RegisterPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //First Name Field.
-              getField("Enter Name*"),
-              getCard("Name", nameController),
+          child: Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //First Name Field.
+                getField("Enter Name*"),
+                getCard("Name", nameController),
 
-              //City Field.
-              getField("Enter City*"),
-              getCard("City", cityController),
+                //City Field.
+                getField("Enter City*"),
+                getCard("City", cityController),
 
-              //Age Field
-              getField("Enter Age*"),
-              getCard("Age", ageController),
+                //Age Field
+                getField("Enter Age*"),
+                getCard("Age", ageController),
 
-              //Email Field
-              getField("Enter Email*"),
-              getCard("Email", emailController),
+                //Email Field
+                getField("Enter Email*"),
+                getCard("Email", emailController),
 
-              //PassWord Field
-              getField("Enter PassWord*"),
-              Card(
-                elevation: 10,
-                child: TextFormField(
-                  controller: passWordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: "PassWord",
-                    border: OutlineInputBorder(),
+                //PassWord Field
+                getField("Enter PassWord*"),
+                Card(
+                  elevation: 10,
+                  child: TextFormField(
+                    controller: passWordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: "PassWord",
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
-              ),
-              const Text("note: * Fields are mandatory.",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                const Text("note: * Fields are mandatory.",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
 
-              Container(
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.blue,),
-                margin: EdgeInsets.only(top: 15),
-                padding: EdgeInsets.all(5),
+                Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.blue,),
+                  margin: EdgeInsets.only(top: 15),
+                  padding: EdgeInsets.all(5),
 
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) {
-                          dynamic email = emailController.text;
-                          dynamic pass = passWordController.text;
-                          return LoginPage(email:email, pass:pass);
-                        }),
-                      ),
-                    );
-                    setState(() {});
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Create an Account',
-                        style: TextStyle(color: Colors.white,fontSize: 20),
-                      ),
-                    ],
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: ((context) {
+                            dynamic email = emailController.text;
+                            dynamic pass = passWordController.text;
+                            return LoginPage(email:email, pass:pass);
+                          }),
+                        ),
+                      );
+                      setState(() {});
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Create an Account',
+                          style: TextStyle(color: Colors.white,fontSize: 20),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // Column(
-              //   children: [
-              //     Text(userList[1]["City"]),
-              //   ],
-              // ),
-            ],
+                // Column(
+                //   children: [
+                //     Text(userList[1]["City"]),
+                //   ],
+                // ),
+              ],
+            ),
           ),
         ),
       ),

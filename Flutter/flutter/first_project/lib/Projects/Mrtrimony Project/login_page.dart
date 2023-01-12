@@ -6,7 +6,7 @@ class LoginPage extends StatefulWidget {
   dynamic email;
   dynamic pass;
 
-  LoginPage({super.key, this.email, this.pass});
+  LoginPage({super.key, this.email='', this.pass=''});
 
   @override
   State<LoginPage> createState() => _LoginPage();
@@ -61,6 +61,11 @@ class _LoginPage extends State<LoginPage> {
                             validator: (value) {
                               if (value != null && value.isEmpty) {
                                 return 'Enter Email';
+                              } else if (widget.email
+                                      .toString()
+                                      .toLowerCase() !=
+                                  emailController.text.toLowerCase()) {
+                                return 'Email is Wrong';
                               }
                             },
                           ),
@@ -82,6 +87,9 @@ class _LoginPage extends State<LoginPage> {
                             validator: (value) {
                               if (value != null && value.isEmpty) {
                                 return 'Enter PassWord';
+                              } else if (widget.pass.toString().toLowerCase() !=
+                                  passWordController.text.toLowerCase()) {
+                                return 'PassWord is Wrong';
                               } else if (value!.length < 6) {
                                 return 'Enter at least 6 Character';
                               }
@@ -123,13 +131,7 @@ class _LoginPage extends State<LoginPage> {
                               TextButton(
                                 onPressed: () {
                                   setState(() {
-                                    if (formKey.currentState!.validate() &&
-                                        widget.email.toString().toLowerCase() ==
-                                            emailController.text
-                                                .toLowerCase() &&
-                                        widget.pass.toString().toLowerCase() ==
-                                            passWordController.text
-                                                .toLowerCase()) {
+                                    if (formKey.currentState!.validate()) {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: ((context) {

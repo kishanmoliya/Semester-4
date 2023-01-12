@@ -35,11 +35,9 @@ class _AddUser extends State<AddUser> {
           getField("Enter Name*"),
           getCard("First Name", nameController),
           //City Field.
-
           getField("Enter City*"),
           getCard("CIty Name", cityController),
           //Age Field.
-
           getField("Enter Age*"),
           getCard("Age", ageController),
 
@@ -75,13 +73,13 @@ class _AddUser extends State<AddUser> {
     );
   }
 
-  Widget getCard(String tLable, controller) {
+  Widget getCard(String Lable, controller) {
     return Card(
       elevation: 15,
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          labelText: tLable,
+          labelText: Lable,
           border: OutlineInputBorder(),
         ),
       ),

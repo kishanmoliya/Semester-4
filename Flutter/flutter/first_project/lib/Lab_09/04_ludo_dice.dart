@@ -1,8 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-int i = 5;
+int i = Random().nextInt(5)+1;
 class LudeDice extends StatefulWidget {
   const LudeDice({Key? key}) : super(key: key);
 
@@ -21,7 +20,7 @@ class _LudeDiceState extends State<LudeDice> {
       body: InkWell(
         onTap: () {
           setState((){
-            i = Random().nextInt(5)+1;
+            i = Random().nextInt(6)+1;
           });
         },
         child: Container(
