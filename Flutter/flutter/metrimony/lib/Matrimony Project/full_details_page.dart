@@ -52,3 +52,5 @@ class _FullDetailsState extends State<FullDetails> {
     );
   }
 }
+
+

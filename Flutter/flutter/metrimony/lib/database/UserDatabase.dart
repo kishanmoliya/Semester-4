@@ -21,7 +21,7 @@ class MyDatabase {
 
     if (FileSystemEntity.typeSync(path) == FileSystemEntityType.notFound) {
       ByteData data =
-          await rootBundle.load(join('assets/database', 'matrimony.db'));
+          await rootBundle.load(join('assets/database','matrimony.db'));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await new File(path).writeAsBytes(bytes);
@@ -31,8 +31,25 @@ class MyDatabase {
   Future<List<Map<String, Object?>>> getDatabaseFromUserTable() async {
     Database db = await initDatabase();
     List<Map<String, Object?>> data =
-        await db.rawQuery('SELECT * FROM Mst_Users');
-    //print("user : ${data}");
+        await db.rawQuery('select * from UsersList');
+    print("User : ${data.length}");
     return data;
   }
+  // Future<List<UserModel>> getDatabaseFromUserTable() async {
+  //   List<UserModel> userList = [];
+  //   Database db = await initDatabase();
+  //   List<Map<String, Object?>> data =
+  //   await db.rawQuery('SELECT * FROM Mst_Users');
+  //
+  //   for(int i=0; i<data.length; i++){
+  //     UserModel model = UserModel();
+  //     model.UserId = data[i]['UserID'] as int;
+  //     model.UserId = data[i]['Name'].toString();
+  //     model.UserId = data[i]['City'].toString();
+  //     model.UserId = data[i]['Age'] as int;
+  //     userList.add(model);
+  //   }
+  //   //print("user : ${data}");
+  //   return userList;
+  // }
 }
