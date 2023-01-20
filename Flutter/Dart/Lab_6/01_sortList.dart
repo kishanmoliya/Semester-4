@@ -7,7 +7,7 @@ void main() {
   List list = [];
 
   for (int i = 0; i < 5; i++) {
-    stdout.write("ENter the value of number ${i + 1} = ");
+    stdout.write("Enter the value of number ${i + 1} = ");
     list.add(stdin.readLineSync()!);
   }
 
