@@ -96,9 +96,9 @@ class _RestClient implements RestClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'name': name,
-      'designation': designation,
-      'experience': experience,
+      'FacultyName': name,
+      'FacultyDesignation': designation,
+      'FacultyExperience': experience,
     };
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'POST',

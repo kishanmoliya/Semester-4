@@ -1,5 +1,6 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
+
 part 'rest_client.g.dart';
 
 @RestApi(baseUrl: "https://630ed8a23792563418824a76.mockapi.io/")
@@ -17,5 +18,9 @@ abstract class RestClient {
 
   @POST("/facultyAngular")
   @FormUrlEncoded()
-  Future<dynamic> addFaculty(@Field('name') name, @Field('designation') designation, @Field('experience') experience);
+  Future<dynamic> addFaculty(
+    @Field('FacultyName') name,
+    @Field('FacultyDesignation') designation,
+    @Field('FacultyExperience') experience,
+  );
 }

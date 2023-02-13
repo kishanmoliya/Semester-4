@@ -70,4 +70,12 @@ class MyDatabase {
     }
     return userList;
   }
+
+  // Future<bool> updateIsFavourite(userID,isFavourite) async {
+  //   Database db = await initDatabase();
+  //   Map<String, Object?> map = Map();
+  //   map['IsFavourite'] = !isFavourite;
+  //   db.update('Tbl_User', map,where: 'UserID = ?', whereArgs: [userID],);
+  //   return true;
+  // }
 }

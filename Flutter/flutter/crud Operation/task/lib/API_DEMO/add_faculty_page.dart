@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-
 import '../api/rest_client.dart';
 
 class AddFaculty extends StatelessWidget {
@@ -40,19 +39,24 @@ class AddFaculty extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.green,
-                      borderRadius: BorderRadius.circular(20)
-                  ),
-                  margin: EdgeInsets.fromLTRB(7,10,0,0),
-                  padding: EdgeInsets.fromLTRB(10,3,10,3),
+                      borderRadius: BorderRadius.circular(20)),
+                  margin: EdgeInsets.fromLTRB(7, 10, 0, 0),
+                  padding: EdgeInsets.fromLTRB(10, 3, 10, 3),
                   child: TextButton(
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
                         addFaculty();
+                        Future.delayed(
+                          Duration(milliseconds: 1000),
+                              () {
+                            Navigator.of(context).pop(1);
+                          },
+                        );
                       }
                     },
                     child: Text(
                       'Add',
-                      style: TextStyle(color: Colors.white,fontSize: 18),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),
                 ),
@@ -95,8 +99,8 @@ class AddFaculty extends StatelessWidget {
   Future<void> addFaculty() async {
     final dio = Dio(); // Provide a dio instance
     final client = RestClient(dio);
-    await client.addFaculty(nameController.text, cityController.text,ageController.text).then((value) {
-      print("Added Data :::: ${value.toString()}");
-    },);
+    await client
+        .addFaculty(nameController.text, cityController.text,
+        ageController.text);
   }
 }

@@ -8,9 +8,14 @@ import 'package:task/api/rest_client.dart';
 import 'add_faculty_page.dart';
 import 'model/faculty_list_model/FacultyModel.dart';
 
-class ApiDemo extends StatelessWidget {
+class ApiDemo extends StatefulWidget {
   const ApiDemo({Key? key}) : super(key: key);
 
+  @override
+  State<ApiDemo> createState() => _ApiDemoState();
+}
+
+class _ApiDemoState extends State<ApiDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +35,7 @@ class ApiDemo extends StatelessWidget {
                       .then(
                     (value) {
                       if (value == 1) {
-                        // isGetData = true;
-                        // setState(() {});
+                        setState(() {});
                       }
                     },
                   );
@@ -46,7 +50,9 @@ class ApiDemo extends StatelessWidget {
       ),
       body: FutureBuilder<FacultyListModel>(
         builder: (context, snapshot) {
-          if (snapshot.data != null && snapshot.hasData) {
+          if (snapshot.connectionState != ConnectionState.waiting &&
+              snapshot.data != null &&
+              snapshot.hasData) {
             return ListView.builder(
               itemBuilder: (context, index) {
                 return InkWell(
@@ -61,12 +67,29 @@ class ApiDemo extends StatelessWidget {
                   child: Card(
                     elevation: 15,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(12),
                           child: Text(snapshot
                               .data!.resultList![index].facultyName
                               .toString()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              deleteFaculty(
+                                  snapshot.data!.resultList![index].facultyID);
+                              Future.delayed(
+                                Duration(milliseconds: 1000),
+                                () {
+                                  setState(() {});
+                                },
+                              );
+                            },
+                            child: Text("Delete"),
+                          ),
                         ),
                       ],
                     ),
@@ -100,7 +123,18 @@ class ApiDemo extends StatelessWidget {
     final client = RestClient(dio);
     dynamic abc = await client.getUsers();
     FacultyListModel data = FacultyListModel.fromJson(abc);
-    print("Data :::: ${data.resultList!.length}");
     return data;
   }
+
+  Future<void> deleteFaculty(id) async {
+    final dio = Dio(); // Provide a dio instance
+    final client = RestClient(dio);
+    await client.deleteFaculty(id);
+  }
+
+  // Future<void> deleteFaculty(id) async {
+  //   final dio = Dio(); // Provide a dio instance
+  //   final client = RestClient(dio);
+  //   await client.deleteFaculty(id);
+  // }
 }

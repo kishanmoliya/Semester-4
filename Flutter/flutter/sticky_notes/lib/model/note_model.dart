@@ -1,16 +1,9 @@
-class ListModel{
-  late int _NoteID;
-  late String _NoteData;
+class NotesListModel {
+  String? noteId;
+  String? noteTitle;
+  String? noteContent;
+  DateTime? createdTime;
+  DateTime? lastEditedTime;
 
-  int get ListID => _NoteID;
-
-  set ListID(int ListID) {
-    _NoteID = ListID;
-  }
-
-  String get NoteData => _NoteData;
-
-  set NoteData(String NoteData) {
-    _NoteData = NoteData;
-  }
+  NotesListModel({this.noteId, this.noteTitle, this.noteContent, this.createdTime, this.lastEditedTime});
 }

@@ -88,6 +88,7 @@ class _UserListPageState extends State<UserListPage> {
                           ? IconButton(
                           onPressed: () {
                             searchController.clear();
+                            isGetData = true;
                             setState(() {});
                           },
                           icon: Icon(Icons.cancel, color: Colors.grey)) : null,

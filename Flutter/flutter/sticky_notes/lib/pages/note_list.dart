@@ -19,7 +19,7 @@ class _NoteListState extends State<NoteList> {
   bool _isLoading = false;
 
   String formatedDataTime(DateTime dateTime) {
-    return '${dateTime.day}/${dateTime.month}/${dateTime.}';
+    return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
   }
 
   @override
