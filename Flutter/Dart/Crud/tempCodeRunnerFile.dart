@@ -1,1 +1,0 @@
-studet_id
