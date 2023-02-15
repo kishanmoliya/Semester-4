@@ -73,11 +73,50 @@ class _NoteEditPageState extends State<NoteEditPage> {
                   ElevatedButton(
                       onPressed: () async {
                         if (!isEdit) {
-                        } else {
+                          //Update Note Region
                           setState(() {
                             _isLoading = true;
                           });
-                          final note = NoteInsert(
+                          final note = NoteManipulation(
+                              noteTitle: _titleController.text,
+                              noteContent: _contentController.text);
+                          final result = await notesService.updateNote(widget.noteId! ,note);
+
+                          setState(() {
+                            _isLoading = false;
+                          });
+
+                          final title = 'Done';
+                          final text = result.errorMessage != null
+                              ? (result.errorMessage ?? 'An Error occurred')
+                              : 'Your note was updated';
+
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text(title),
+                              content: Text(text),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('OK'),
+                                )
+                              ],
+                            ),
+                          ).then((data) {
+                            if (result.data != null) {
+                              Navigator.of(context).pop();
+                            }
+                          });
+                        }
+                        //Add Note Region
+                        else {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          final note = NoteManipulation(
                               noteTitle: _titleController.text,
                               noteContent: _contentController.text);
                           final result = await notesService.createNote(note);
@@ -87,7 +126,9 @@ class _NoteEditPageState extends State<NoteEditPage> {
                           });
 
                           final title = 'Done';
-                          final text = result.errorMessage != null ? (result.errorMessage ?? 'An Error occurred') : 'Your note was created';
+                          final text = result.errorMessage != null
+                              ? (result.errorMessage ?? 'An Error occurred')
+                              : 'Your note was created';
 
                           showDialog(
                             context: context,
@@ -96,15 +137,15 @@ class _NoteEditPageState extends State<NoteEditPage> {
                               content: Text(text),
                               actions: [
                                 TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('OK'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('OK'),
                                 )
                               ],
                             ),
-                          ).then((data){
-                            if(result.data!){
+                          ).then((data) {
+                            if (result.data!) {
                               Navigator.of(context).pop();
                             }
                           });

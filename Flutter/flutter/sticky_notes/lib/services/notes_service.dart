@@ -40,7 +40,7 @@ class NotesService {
   }
 
   //Add Data
-  Future<APIResponse<bool>> createNote(NoteInsert item) {
+  Future<APIResponse<bool>> createNote(NoteManipulation item) {
     return http
         .post(Uri.parse(API + "/noteList"), body: item.toJson())
         .then((data) {
@@ -51,5 +51,35 @@ class NotesService {
           error: true, errorMessage: 'Some thing went to wrong');
     }).catchError((_) => APIResponse<bool>(
             error: true, errorMessage: 'Some thing went to wrong'));
+  }
+
+  //Update Data
+  Future<APIResponse<bool>> updateNote(String noteID, NoteManipulation item) {
+    return http
+        .put(Uri.parse(API + "/noteList/" + noteID), body: item.toJson())
+        .then((data) {
+      print("Data :: ${data.statusCode}");
+      if (data.statusCode == 200) {
+        return APIResponse<bool>(data: true);
+      }
+      return APIResponse<bool>(
+          error: true, errorMessage: 'Some thing went to wrong');
+    }).catchError((_) => APIResponse<bool>(
+        error: true, errorMessage: 'Some thing went to wrong'));
+  }
+
+  //Delete Data
+  Future<APIResponse<bool>> deleteNote(String noteID) {
+    return http
+        .delete(Uri.parse(API + "/noteList/" + noteID))
+        .then((data) {
+      print("Data :: ${data.statusCode}");
+      if (data.statusCode == 200) {
+        return APIResponse<bool>(data: true);
+      }
+      return APIResponse<bool>(
+          error: true, errorMessage: 'Some thing went to wrong');
+    }).catchError((_) => APIResponse<bool>(
+        error: true, errorMessage: 'Some thing went to wrong'));
   }
 }

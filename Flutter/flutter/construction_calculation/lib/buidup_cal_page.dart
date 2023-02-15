@@ -1,6 +1,9 @@
+import 'package:construction_calculation/buidup_cal_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'buidup_cal_page.dart';
 
 class BuildUpCalculationPage extends StatefulWidget {
   @override
@@ -16,55 +19,34 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
 
   NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
 
-  //
-  // List<charts.Series<Task,String>> _seriesPieData;
-  //
-  // _generateData(){
-  //   var pieData=[
-  //     new Task('1', 10.0, Color(0xffdc3912)),
-  //     new Task('2', 5.0, Color(0xff990099)),
-  //     new Task('3', 15.0, Color(0xff109618)),
-  //     new Task('4', 30.0, Color(0xffdbe19)),
-  //     new Task('5', 40.0, Color(0xffff9900)),
-  //   ];
-  // }
-  //First Chart Data
-  // List<PieData>? _chartData;
-  // void intState() {
-  //   super.initState();
-  //   _chartData = getChartData();
-  //   print("Data :::: $_chartData");
-  // }
-  //
-  // List<PieData> getChartData(){
-  //   final List<PieData> chartData = [
-  //     PieData('Cement', 16.4),
-  //     PieData('Sand', 12.3),
-  //     PieData('Aggregate', 7.4),
-  //     PieData('Steel', 24.6),
-  //     PieData('Finisher', 16.5),
-  //     PieData('Fitting', 22.8),
-  //   ];
-  //   print("Data ::: $PieData");
-  //   return chartData;
-  // }
-  late List<_ChartData> data;
-  late TooltipBehavior _tooltip;
+
+
+  final List<ChartData> chartData = [
+    ChartData('Cement', 16.4, Colors.green),
+    ChartData('Sand', 12.3, Colors.yellowAccent),
+    ChartData('Aggregate', 7.4, Colors.red),
+    ChartData('Steel', 24.6, Colors.blue),
+    ChartData('Finisher', 16.5, Colors.lightGreenAccent),
+    ChartData('Fitting', 22.8, Colors.cyan)
+  ];
+
+  late TooltipBehavior _tooltipBehavior;
 
   @override
-  void initState() {
-    data = [
-      _ChartData('David', 25),
-      _ChartData('Steve', 38),
-      _ChartData('Jack', 34),
-      _ChartData('Others', 52)
-    ];
-    _tooltip = TooltipBehavior(enable: true);
+  void initState(){
+    _tooltipBehavior = TooltipBehavior(enable: true);
     super.initState();
   }
-  // var piaData=[
-  //   new Task('work',35.5),
-  // ];
+
+  //Bar chart
+    final List<BarChartData> barChartData = [
+      BarChartData(1, 35),
+      BarChartData(2, 23),
+      BarChartData(3, 34),
+      BarChartData(4, 25),
+      BarChartData(5, 40)
+    ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -225,15 +207,33 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
               'Fittings(22.8%)(Window(3.0%)+Doors(3.4%)+Plumbing(5.5%)+Electrical(6.8)+Sanitary(4.1%))',
               cost, buildArea, 0.2),
 
-        SfCircularChart(
-            tooltipBehavior: _tooltip,
-            series: <ChartSeries<_ChartData, String>>[
-              DoughnutSeries<_ChartData, String>(
-                  dataSource: data,
-                  xValueMapper: (_ChartData data, _) => data.x,
-                  yValueMapper: (_ChartData data, _) => data.y,
-                  name: 'Gold'),
-            ],),
+          SfCircularChart(
+            legend: Legend(isVisible: true, overflowMode: LegendItemOverflowMode.scroll, position: LegendPosition.bottom,),
+              annotations: <CircularChartAnnotation>[
+                CircularChartAnnotation(
+                  widget: Container(
+                    child: const Text(
+                        'Construction Cost ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          fontSize: 10
+                        )),
+                  ),
+                )
+              ],
+              tooltipBehavior: _tooltipBehavior,
+              series: <CircularSeries>[
+                // Renders doughnut chart
+                DoughnutSeries<ChartData, String>(
+                    dataSource: chartData,
+                    pointColorMapper:(ChartData data,  _) => data.color,
+                    xValueMapper: (ChartData data, _) => data.x,
+                    yValueMapper: (ChartData data, _) => data.y,
+                    dataLabelSettings:DataLabelSettings(isVisible: true),
+                  enableTooltip: true,
+                )
+              ]
+          )
         ],
       ),
     );
@@ -348,6 +348,17 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
           getField('5th Month(17.8%)', cost, buildArea, 425),
           Divider(),
           getField('6th Month(13.9%)', cost, buildArea, 475),
+
+          SfCartesianChart(
+              series: <ChartSeries<BarChartData, int>>[
+                // Renders column chart
+                ColumnSeries<BarChartData, int>(
+                    dataSource: barChartData,
+                    xValueMapper: (BarChartData data, _) => data.x,
+                    yValueMapper: (BarChartData data, _) => data.y
+                )
+              ]
+          )
         ],
       ),
     );
@@ -374,21 +385,16 @@ class InputValues{
   }
 }
 
-class _ChartData {
-  _ChartData(this.x, this.y);
-
+class ChartData {
+  ChartData(this.x, this.y, [this.color]);
   final String x;
   final double y;
+  final Color? color;
 }
 
-
-
-
-//
-// class Task{
-//   late String task;
-//   late double taskVal;
-//   late Color colorVal;
-//
-//   Task(this.task, this.taskVal, this.colorVal);
-// }
+//Bar Chart
+class BarChartData {
+  BarChartData(this.x, this.y);
+  final int x;
+  final double y;
+}
