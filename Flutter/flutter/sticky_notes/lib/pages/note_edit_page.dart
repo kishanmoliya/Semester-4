@@ -49,114 +49,122 @@ class _NoteEditPageState extends State<NoteEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Center(
-            child: Text(isEdit ? 'Create note' : 'Edit not'),
-          ),
-          backgroundColor: Colors.black),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _isLoading
-            ? Center(child: CircularProgressIndicator())
-            : Column(
-                children: [
-                  TextFormField(
-                    controller: _titleController,
-                    decoration: InputDecoration(hintText: 'Title'),
-                  ),
-                  TextFormField(
-                    controller: _contentController,
-                    decoration: InputDecoration(hintText: 'Content'),
-                  ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                      onPressed: () async {
-                        if (!isEdit) {
-                          //Update Note Region
-                          setState(() {
-                            _isLoading = true;
-                          });
-                          final note = NoteManipulation(
-                              noteTitle: _titleController.text,
-                              noteContent: _contentController.text);
-                          final result = await notesService.updateNote(widget.noteId! ,note);
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currFocus = FocusScope.of(context);
+        if(!currFocus.hasPrimaryFocus){
+          currFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+            title: Center(
+              child: Text(isEdit ? 'Create note' : 'Edit not'),
+            ),
+            backgroundColor: Colors.black),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    TextFormField(
+                      controller: _titleController,
+                      decoration: InputDecoration(hintText: 'Title'),
+                    ),
+                    TextFormField(
+                      controller: _contentController,
+                      decoration: InputDecoration(hintText: 'Content'),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                        onPressed: () async {
+                          if (!isEdit) {
+                            //Update Note Region
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            final note = NoteManipulation(
+                                noteTitle: _titleController.text,
+                                noteContent: _contentController.text);
+                            final result = await notesService.updateNote(widget.noteId! ,note);
 
-                          setState(() {
-                            _isLoading = false;
-                          });
+                            setState(() {
+                              _isLoading = false;
+                            });
 
-                          final title = 'Done';
-                          final text = result.errorMessage != null
-                              ? (result.errorMessage ?? 'An Error occurred')
-                              : 'Your note was updated';
+                            final title = 'Done';
+                            final text = result.errorMessage != null
+                                ? (result.errorMessage ?? 'An Error occurred')
+                                : 'Your note was updated';
 
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text(title),
-                              content: Text(text),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text('OK'),
-                                )
-                              ],
-                            ),
-                          ).then((data) {
-                            if (result.data != null) {
-                              Navigator.of(context).pop();
-                            }
-                          });
-                        }
-                        //Add Note Region
-                        else {
-                          setState(() {
-                            _isLoading = true;
-                          });
-                          final note = NoteManipulation(
-                              noteTitle: _titleController.text,
-                              noteContent: _contentController.text);
-                          final result = await notesService.createNote(note);
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(title),
+                                content: Text(text),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK'),
+                                  )
+                                ],
+                              ),
+                            ).then((data) {
+                              if (result.data != null) {
+                                Navigator.of(context).pop();
+                              }
+                            });
+                          }
+                          //Add Note Region
+                          else {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            final note = NoteManipulation(
+                                noteTitle: _titleController.text,
+                                noteContent: _contentController.text);
+                            final result = await notesService.createNote(note);
 
-                          setState(() {
-                            _isLoading = false;
-                          });
+                            setState(() {
+                              _isLoading = false;
+                            });
 
-                          final title = 'Done';
-                          final text = result.errorMessage != null
-                              ? (result.errorMessage ?? 'An Error occurred')
-                              : 'Your note was created';
+                            final title = 'Done';
+                            final text = result.errorMessage != null
+                                ? (result.errorMessage ?? 'An Error occurred')
+                                : 'Your note was created';
 
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text(title),
-                              content: Text(text),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text('OK'),
-                                )
-                              ],
-                            ),
-                          ).then((data) {
-                            if (result.data!) {
-                              Navigator.of(context).pop();
-                            }
-                          });
-                        }
-                      },
-                      child: Text(
-                        "Save",
-                        style: TextStyle(color: Colors.white),
-                      ))
-                ],
-              ),
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(title),
+                                content: Text(text),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK'),
+                                  )
+                                ],
+                              ),
+                            ).then((data) {
+                              if (result.data!) {
+                                Navigator.of(context).pop();
+                              }
+                            });
+                          }
+                        },
+                        child: Text(
+                          "Save",
+                          style: TextStyle(color: Colors.white),
+                        ))
+                  ],
+                ),
+        ),
       ),
     );
   }

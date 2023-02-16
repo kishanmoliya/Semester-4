@@ -1,9 +1,6 @@
-import 'package:construction_calculation/buidup_cal_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
-import 'buidup_cal_page.dart';
 
 class BuildUpCalculationPage extends StatefulWidget {
   @override

@@ -58,22 +58,18 @@ class NotesService {
     return http
         .put(Uri.parse(API + "/noteList/" + noteID), body: item.toJson())
         .then((data) {
-      print("Data :: ${data.statusCode}");
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
       }
       return APIResponse<bool>(
           error: true, errorMessage: 'Some thing went to wrong');
     }).catchError((_) => APIResponse<bool>(
-        error: true, errorMessage: 'Some thing went to wrong'));
+            error: true, errorMessage: 'Some thing went to wrong'));
   }
 
   //Delete Data
   Future<APIResponse<bool>> deleteNote(String noteID) {
-    return http
-        .delete(Uri.parse(API + "/noteList/" + noteID))
-        .then((data) {
-      print("Data :: ${data.statusCode}");
+    return http.delete(Uri.parse(API + "/noteList/" + noteID)).then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
       }
