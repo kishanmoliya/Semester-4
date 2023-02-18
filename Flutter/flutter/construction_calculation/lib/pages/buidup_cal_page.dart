@@ -3,6 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class BuildUpCalculationPage extends StatefulWidget {
+  String? icon;
+  BuildUpCalculationPage(String icon);
+
   @override
   State<BuildUpCalculationPage> createState() => _BuildUpCalculationPageState();
 }
@@ -47,79 +50,98 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Construction Calculation"),
-        backgroundColor: Colors.red,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(7.0),
-          child: Column(
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currFocus = FocusScope.of(context);
+        if(!currFocus.hasPrimaryFocus)
+          currFocus.unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
             children: [
-              Card(
-                elevation: 20,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(7, 7, 7, 3),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          input.getInput(
-                              'Buildup Area (Square Feet)', buildupController),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          input.getInput(
-                              'Cost Per Square Feet', costController),
-                        ],
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 7),
-                        child: Row(
+              Image.asset(widget.icon!,width: 40, height: 40, color: Colors.white,),
+              Text("  Construction Calculation"),
+            ],
+          ),
+          backgroundColor: Colors.red,
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(7.0),
+            child: Column(
+              children: [
+                Card(
+                  elevation: 20,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(7, 7, 7, 3),
+                    child: Column(
+                      children: [
+                        Row(
                           children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isDataVisible = true;
-                                    });
-                                  },
-                                  child: Text(
-                                    "Claculate",
-                                    style: TextStyle(fontSize: 22),
-                                  )),
-                            ),
+                            input.getInput(
+                                'Buildup Area (Square Feet)', buildupController),
                             SizedBox(
                               width: 5,
                             ),
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isDataVisible = false;
-                                    buildupController.clear();
-                                    costController.clear();
-                                  });
-                                },
-                                child: Text(
-                                  "Reset",
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                              ),
-                            ),
+                            input.getInput(
+                                'Cost Per Square Feet', costController),
                           ],
                         ),
-                      ),
-                    ],
+                        Container(
+                          margin: EdgeInsets.only(top: 7),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        isDataVisible = true;
+                                      });
+                                    },
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        FocusScopeNode currFocus = FocusScope.of(context);
+                                        if(!currFocus.hasPrimaryFocus)
+                                          currFocus.unfocus();
+                                      },
+                                      child: Text(
+                                        "Claculate",
+                                        style: TextStyle(fontSize: 22),
+                                      ),
+                                    )),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isDataVisible = false;
+                                      buildupController.clear();
+                                      costController.clear();
+                                    });
+                                  },
+                                  child: Text(
+                                    "Reset",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              if (isDataVisible) getAmount(),
-              if (isDataVisible) getVariousCost(),
-              if (isDataVisible) getQuantity(),
-              if (isDataVisible) getTime(),
-            ],
+                if (isDataVisible) getAmount(),
+                if (isDataVisible) getVariousCost(),
+                if (isDataVisible) getQuantity(),
+                if (isDataVisible) getTime(),
+              ],
+            ),
           ),
         ),
       ),
