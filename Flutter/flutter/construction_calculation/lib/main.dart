@@ -1,6 +1,4 @@
-import 'package:construction_calculation/pages/buidup_cal_page.dart';
-import 'package:construction_calculation/pages/carpet_cal_page.dart';
-import 'package:construction_calculation/home_page.dart';
+import 'package:construction_calculation/drawer/drawer_home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         textTheme: const TextTheme(bodyMedium: TextStyle(fontWeight: FontWeight.bold,fontSize: 50)),
       ),
-      home: Home_page(),
+      home: NavigationDrawerr(),
     );
   }
 }

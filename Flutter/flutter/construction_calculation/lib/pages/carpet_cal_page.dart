@@ -2,7 +2,8 @@ import 'package:construction_calculation/pages/buidup_cal_page.dart';
 import 'package:flutter/material.dart';
 
 class CarpetAreaPage extends StatefulWidget {
-  CarpetAreaPage({Key? key}) : super(key: key);
+  String icon;
+  CarpetAreaPage(this.icon);
 
   @override
   State<CarpetAreaPage> createState() => _CarpetAreaPageState();
@@ -43,7 +44,17 @@ class _CarpetAreaPageState extends State<CarpetAreaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Carpet Area Calculator"),
+        title: Row(
+          children: [
+            Image.asset(
+              widget.icon!,
+              width: 40,
+              height: 40,
+              color: Colors.white,
+            ),
+            Text("  Carpet Cost Calculation"),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

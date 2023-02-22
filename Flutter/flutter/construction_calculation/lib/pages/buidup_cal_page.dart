@@ -3,8 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class BuildUpCalculationPage extends StatefulWidget {
-  String? icon;
-  BuildUpCalculationPage(String icon);
+  String icon;
+
+  BuildUpCalculationPage(this.icon);
 
   @override
   State<BuildUpCalculationPage> createState() => _BuildUpCalculationPageState();
@@ -12,14 +13,12 @@ class BuildUpCalculationPage extends StatefulWidget {
 
 class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
   InputValues input = InputValues();
-  TextEditingController buildupController = TextEditingController();
+  late TextEditingController buildupController;
   TextEditingController costController = TextEditingController();
 
   bool isDataVisible = false;
 
   NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
-
-
 
   final List<ChartData> chartData = [
     ChartData('Cement', 16.4, Colors.green),
@@ -33,115 +32,111 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
   late TooltipBehavior _tooltipBehavior;
 
   @override
-  void initState(){
+  void initState() {
     _tooltipBehavior = TooltipBehavior(enable: true);
+    buildupController = TextEditingController();
     super.initState();
   }
 
+  List<BarChartData> barChartData = [];
   //Bar chart
-    final List<BarChartData> barChartData = [
-      BarChartData(1, 35),
-      BarChartData(2, 23),
-      BarChartData(3, 34),
-      BarChartData(4, 25),
-      BarChartData(5, 40)
-    ];
-
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currFocus = FocusScope.of(context);
-        if(!currFocus.hasPrimaryFocus)
-          currFocus.unfocus();
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Image.asset(widget.icon!,width: 40, height: 40, color: Colors.white,),
-              Text("  Construction Calculation"),
-            ],
-          ),
-          backgroundColor: Colors.red,
+
+    barChartData = [
+      BarChartData('1st Month',70, Colors.teal),
+      BarChartData('2nd Month', 123, Colors.orange),
+      BarChartData('3rd Month', 107, Colors.brown),
+      BarChartData('4th Month', 87, Colors.deepOrange),
+      BarChartData('5th Month', 120, Colors.greenAccent),
+      BarChartData('6th Month', 100, Colors.purple)
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Image.asset(
+              widget.icon!,
+              width: 40,
+              height: 40,
+              color: Colors.white,
+            ),
+            Text("  Construction Cost Calculation"),
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(7.0),
-            child: Column(
-              children: [
-                Card(
-                  elevation: 20,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(7, 7, 7, 3),
-                    child: Column(
-                      children: [
-                        Row(
+        backgroundColor: Colors.red,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(7.0),
+          child: Column(
+            children: [
+              Card(
+                elevation: 20,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(7, 7, 7, 3),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          input.getInput('Buildup Area (Square Feet)',
+                              buildupController),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          input.getInput(
+                              'Cost Per Square Feet', costController),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 7),
+                        child: Row(
                           children: [
-                            input.getInput(
-                                'Buildup Area (Square Feet)', buildupController),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            input.getInput(
-                                'Cost Per Square Feet', costController),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 7),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        isDataVisible = true;
-                                      });
-                                    },
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        FocusScopeNode currFocus = FocusScope.of(context);
-                                        if(!currFocus.hasPrimaryFocus)
-                                          currFocus.unfocus();
-                                      },
-                                      child: Text(
-                                        "Claculate",
-                                        style: TextStyle(fontSize: 22),
-                                      ),
-                                    )),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Expanded(
-                                child: ElevatedButton(
+                            Expanded(
+                              child: ElevatedButton(
                                   onPressed: () {
+                                    FocusManager.instance.primaryFocus?.unfocus();
                                     setState(() {
-                                      isDataVisible = false;
-                                      buildupController.clear();
-                                      costController.clear();
+                                      isDataVisible = true;
                                     });
                                   },
                                   child: Text(
-                                    "Reset",
+                                    "Claculate",
                                     style: TextStyle(fontSize: 22),
-                                  ),
+                                  )),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isDataVisible = false;
+                                    buildupController.clear();
+                                    costController.clear();
+                                  });
+                                },
+                                child: Text(
+                                  "Reset",
+                                  style: TextStyle(fontSize: 22),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                if (isDataVisible) getAmount(),
-                if (isDataVisible) getVariousCost(),
-                if (isDataVisible) getQuantity(),
-                if (isDataVisible) getTime(),
-              ],
-            ),
+              ),
+              if (isDataVisible) getAmount(),
+              if (isDataVisible) getVariousCost(),
+              if (isDataVisible) getQuantity(),
+              if (isDataVisible) getTime(),
+            ],
           ),
         ),
       ),
@@ -186,7 +181,7 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
   }
 
   //Second Field
-  Widget getVariousCost()  {
+  Widget getVariousCost() {
     double cost = double.parse(costController.text);
     double buildArea = double.parse(buildupController.text);
     return Card(
@@ -209,7 +204,6 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
               ),
             ),
           ),
-
           getField('Cement(16.4%)', cost, buildArea, 0.4),
           Divider(),
           getField('Sand(12.3%)', cost, buildArea, 6.55),
@@ -218,49 +212,49 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
           Divider(),
           getField('Steel(24.6%)', cost, buildArea, 3.2),
           Divider(),
-          getField(
-              'Finishers(16.5%)(Paint(4.1%)+Tiles(8.0%)+Bricks(4.4%))', cost,
-              buildArea, 1.2),
+          getField('Finishers(16.5%)(Paint(4.1%)+Tiles(8.0%)+Bricks(4.4%))',
+              cost, buildArea, 1.2),
           Divider(),
           getField(
               'Fittings(22.8%)(Window(3.0%)+Doors(3.4%)+Plumbing(5.5%)+Electrical(6.8)+Sanitary(4.1%))',
-              cost, buildArea, 0.2),
-
+              cost,
+              buildArea,
+              0.2),
           SfCircularChart(
-            legend: Legend(isVisible: true, overflowMode: LegendItemOverflowMode.scroll, position: LegendPosition.bottom,),
+              legend: Legend(
+                isVisible: true,
+                overflowMode: LegendItemOverflowMode.scroll,
+                position: LegendPosition.bottom,
+              ),
               annotations: <CircularChartAnnotation>[
                 CircularChartAnnotation(
                   widget: Container(
-                    child: const Text(
-                        'Construction Cost ',
+                    child: const Text('Construction Cost ',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          fontSize: 10
-                        )),
+                            fontWeight: FontWeight.bold, fontSize: 10)),
                   ),
                 )
               ],
               tooltipBehavior: _tooltipBehavior,
               series: <CircularSeries>[
-                // Renders doughnut chart
                 DoughnutSeries<ChartData, String>(
-                    dataSource: chartData,
-                    pointColorMapper:(ChartData data,  _) => data.color,
-                    xValueMapper: (ChartData data, _) => data.x,
-                    yValueMapper: (ChartData data, _) => data.y,
-                    dataLabelSettings:DataLabelSettings(isVisible: true),
+                  dataSource: chartData,
+                  pointColorMapper: (ChartData data, _) => data.color,
+                  xValueMapper: (ChartData data, _) => data.x,
+                  yValueMapper: (ChartData data, _) => data.y,
+                  dataLabelSettings: DataLabelSettings(isVisible: true),
                   enableTooltip: true,
                 )
-              ]
-          )
+              ])
         ],
       ),
     );
   }
 
   //Main Field
-  Widget getField(String material, double cost, double buildArea,
-      double equation, {String? quantity = ''}) {
+  Widget getField(
+      String material, double cost, double buildArea, double equation,
+      {String? quantity = ''}) {
     return Row(
       children: [
         Expanded(
@@ -276,9 +270,7 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              '${quantity == '' ? myFormat.format(cost + buildArea + equation) +
-                  ' ₹' : myFormat.format(
-                  cost + buildArea + equation)} $quantity',
+              '${quantity == '' ? myFormat.format(cost + buildArea + equation) + ' ₹' : myFormat.format(cost + buildArea + equation)} $quantity',
               textAlign: TextAlign.end,
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
@@ -312,7 +304,6 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
               ),
             ),
           ),
-
           getField('Cement', cost, buildArea, 0.4, quantity: 'Bags'),
           Divider(),
           getField('Sand', cost, buildArea, 6.55, quantity: 'Tan'),
@@ -355,7 +346,6 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
               ),
             ),
           ),
-
           getField('1st Month(21.9%)', cost, buildArea, 500),
           Divider(),
           getField('2nd Month(18.4%)', cost, buildArea, 400),
@@ -367,14 +357,15 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
           getField('5th Month(17.8%)', cost, buildArea, 425),
           Divider(),
           getField('6th Month(13.9%)', cost, buildArea, 475),
-
           SfCartesianChart(
-              series: <ChartSeries<BarChartData, int>>[
-                // Renders column chart
-                ColumnSeries<BarChartData, int>(
+              primaryXAxis: CategoryAxis(),
+              series: <CartesianSeries>[
+                ColumnSeries<BarChartData, String>(
                     dataSource: barChartData,
                     xValueMapper: (BarChartData data, _) => data.x,
-                    yValueMapper: (BarChartData data, _) => data.y
+                    yValueMapper: (BarChartData data, _) => data.y,
+                    pointColorMapper: (BarChartData data, _) => data.color,
+                    dataLabelSettings: DataLabelSettings(isVisible: true),
                 )
               ]
           )
@@ -384,8 +375,8 @@ class _BuildUpCalculationPageState extends State<BuildUpCalculationPage> {
   }
 }
 
-class InputValues{
-  Widget getInput(label, controller){
+class InputValues {
+  Widget getInput(label, controller) {
     return Expanded(
       child: TextFormField(
         // validator: ((value) {
@@ -406,6 +397,7 @@ class InputValues{
 
 class ChartData {
   ChartData(this.x, this.y, [this.color]);
+
   final String x;
   final double y;
   final Color? color;
@@ -413,7 +405,8 @@ class ChartData {
 
 //Bar Chart
 class BarChartData {
-  BarChartData(this.x, this.y);
-  final int x;
+  BarChartData(this.x, this.y, this.color);
+  final String x;
   final double y;
+  final Color? color;
 }

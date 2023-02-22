@@ -1,16 +1,18 @@
 import 'package:construction_calculation/pages/buidup_cal_page.dart';
 import 'package:flutter/material.dart';
 
-class PlyWoodSheets extends StatefulWidget {
+class FlooringCalculationPage extends StatefulWidget {
   String icon;
-  PlyWoodSheets(this.icon);
+
+  FlooringCalculationPage(this.icon);
 
   @override
-  State<PlyWoodSheets> createState() => _PlyWoodSheetsState();
+  State<FlooringCalculationPage> createState() => _FlooringCalculationPageState();
 }
 
-class _PlyWoodSheetsState extends State<PlyWoodSheets> {
+class _FlooringCalculationPageState extends State<FlooringCalculationPage> {
   InputValues input = InputValues();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,12 +26,12 @@ class _PlyWoodSheetsState extends State<PlyWoodSheets> {
               height: 40,
               color: Colors.white,
             ),
-            Text("  PlyWood Sheets Calculator"),
+            Text("  Flooring Calculator"),
           ],
         ),
       ),
       body: Center(
-        child: Text("5rd Page"),
+        child: Text("5th Page"),
       ),
     );
   }
