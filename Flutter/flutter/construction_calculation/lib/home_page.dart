@@ -166,7 +166,7 @@ class Home_page extends StatelessWidget {
                   'assets/icons/concretePipe.png'),
             ],
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                crossAxisCount: 3, crossAxisSpacing: 0, mainAxisSpacing: 0),
           ),
         ),
       ),

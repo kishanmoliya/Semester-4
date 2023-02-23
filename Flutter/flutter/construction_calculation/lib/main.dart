@@ -1,3 +1,4 @@
+import 'package:construction_calculation/assets/colors.dart';
 import 'package:construction_calculation/drawer/drawer_home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: primaryColor,
         textTheme: const TextTheme(bodyMedium: TextStyle(fontWeight: FontWeight.bold,fontSize: 50)),
       ),
       home: NavigationDrawerr(),
