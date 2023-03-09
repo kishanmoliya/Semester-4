@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:practice/add_student_page.dart';
-import 'package:practice/services/student_service.dart';
+import 'package:practice/API/add_student_page.dart';
+import 'package:practice/API/services/student_service.dart';
 
 class StudentListPage extends StatefulWidget {
   const StudentListPage({Key? key}) : super(key: key);
@@ -40,7 +40,7 @@ class _StudentListPageState extends State<StudentListPage> {
                       },
                     )).then((value) {
                       if (value != null) {
-                        StudentService().addStudent(value).then((value){
+                        StudentService().addStudent(value).then((value) {
                           StudentService().getStudentData().then((value) {
                             setState(() {
                               apiData = value;
@@ -64,7 +64,8 @@ class _StudentListPageState extends State<StudentListPage> {
         builder: (context, snapshot) {
           if (snapshot.data != null &&
               snapshot.hasData &&
-              snapshot.connectionState != ConnectionState.waiting && !circularIndicator) {
+              snapshot.connectionState != ConnectionState.waiting &&
+              !circularIndicator) {
             return ListView.builder(
                 itemBuilder: (context, index) {
                   return Container(
@@ -88,15 +89,25 @@ class _StudentListPageState extends State<StudentListPage> {
                                     setState(() {
                                       circularIndicator = true;
                                     });
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                                      return AddStudentPage(student: apiData[index]);
-                                    },)).then((value) {
-                                      if(value != null){
-                                        StudentService().updateStudentData(int.parse(apiData[index]["id"]), value).then((value) {
-                                          StudentService().getStudentData().then((value) => setState((){
-                                            apiData = value;
-                                            circularIndicator = false;
-                                          }));
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) {
+                                        return AddStudentPage(
+                                            student: apiData[index]);
+                                      },
+                                    )).then((value) {
+                                      if (value != null) {
+                                        StudentService()
+                                            .updateStudentData(
+                                                int.parse(apiData[index]["id"]),
+                                                value)
+                                            .then((value) {
+                                          StudentService()
+                                              .getStudentData()
+                                              .then((value) => setState(() {
+                                                    apiData = value;
+                                                    circularIndicator = false;
+                                                  }));
                                         });
                                       }
                                     });
@@ -110,19 +121,24 @@ class _StudentListPageState extends State<StudentListPage> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: InkWell(
-                                  onTap: () {
-                                    circularIndicator = true;
-                                    StudentService().deleteStudent(int.parse(apiData[index]["id"])).then((value) => StudentService().getStudentData()).then((value){
-                                      setState(() {
-                                        apiData = value;
-                                        circularIndicator = false;
+                                    onTap: () {
+                                      circularIndicator = true;
+                                      StudentService()
+                                          .deleteStudent(
+                                              int.parse(apiData[index]["id"]))
+                                          .then((value) =>
+                                              StudentService().getStudentData())
+                                          .then((value) {
+                                        setState(() {
+                                          apiData = value;
+                                          circularIndicator = false;
+                                        });
                                       });
-                                    });
-                                  },
+                                    },
                                     child: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                )),
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    )),
                               ),
                             ],
                           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practice/student_list_page.dart';
+import 'package:practice/API/student_list_page.dart';
 
 void main() {
   runApp(const MyApp());
