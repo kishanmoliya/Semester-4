@@ -1,15 +1,18 @@
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class MyDatabase {
+class MyDatabase{
+
   Future<Database> initDatabase() async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String databasePath = join(appDocDir.path, 'student.db');
-    return await openDatabase(databasePath);
+    return await openDatabase(
+      databasePath,
+      version: 2,
+    );
   }
 
   Future<bool> copyPasteAssetFileToRoot() async {
@@ -18,22 +21,42 @@ class MyDatabase {
 
     if (FileSystemEntity.typeSync(path) == FileSystemEntityType.notFound) {
       ByteData data =
-          await rootBundle.load(join('assets/database', 'student.db'));
+      await rootBundle.load(join('assets/database', 'student.db'));
       List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      await File(path).writeAsBytes(bytes);
+      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      await new File(path).writeAsBytes(bytes);
       return true;
     }
     return false;
   }
 
-  Future<List<Map<String, Object?>>> getStudentList() async {
+  Future< List<Map<String,dynamic>> >getDataFromStudentdetailTable() async {
     Database db = await initDatabase();
-    List<Map<String, Object?>> data = await db.rawQuery(
-        'Select s.StudentName, c.CityName, s.StudentID, c.CityID from Tbl_Student '
-            'sInner Join Tbl_City c ON c.CityID = '
-            's.StudentID');
+    List<Map<String,dynamic> > student= await db.rawQuery("select rollno,sd.name,age,std,cid,c.name as cname from studentdetail as sd inner join city as c on cid=id");
+    return student;
+  }
 
-    return data;
+  Future<void> insertDataFromStudentdetailTable(Map<String,dynamic> a) async{
+    Database db = await initDatabase();
+    await db.rawQuery('insert into studentdetail values(null,"${a["name"]}",${a["age"]},${a["std"]},${a["cid"]})');
+  }
+
+  Future<void> updateDataFromStudentdetailTable(Map<String,dynamic> a , int roll) async{
+    Database db = await initDatabase();
+    await db.rawQuery('update studentdetail set name="${a["name"]}",age=${a["age"]},std=${a["std"]},cid=${a["cid"]} where rollno=${roll}');
+  }
+
+  Future<void> deleteDataFromStudentdetailTable(int roll) async{
+    Database db = await initDatabase();
+    await db.rawQuery('delete from studentdetail where rollno=${roll}');
+  }
+
+  Future< List<Map<String,dynamic>> >getDataFromCityTable() async {
+    Database db = await initDatabase();
+    List<Map<String,dynamic> > city= await db.rawQuery("select * from city");
+    return city;
   }
 }
+
+
+

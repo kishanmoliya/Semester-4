@@ -1,6 +1,5 @@
+import 'package:api_test/student_list_page.dart';
 import 'package:flutter/material.dart';
-import 'package:practice/API/student_list_page.dart';
-import 'package:practice/DataBase/student_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,11 +8,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Api Test',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
