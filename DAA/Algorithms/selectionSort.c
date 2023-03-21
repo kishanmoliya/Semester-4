@@ -2,7 +2,7 @@
 void main(){
     int i, j, n;
 
-    printf("Eneter the size of Array: ");
+    printf("Eneter the size of Array : ");
     scanf("%d",&n);
 
     int arr[n];

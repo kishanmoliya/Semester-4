@@ -5,7 +5,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class MyDatabase{
-
   Future<Database> initDatabase() async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String databasePath = join(appDocDir.path, 'student.db');
@@ -41,20 +40,9 @@ class MyDatabase{
     await db.rawQuery('insert into studentdetail values(null,"${a["name"]}",${a["age"]},${a["std"]},${a["cid"]})');
   }
 
-  Future<void> updateDataFromStudentdetailTable(Map<String,dynamic> a , int roll) async{
-    Database db = await initDatabase();
-    await db.rawQuery('update studentdetail set name="${a["name"]}",age=${a["age"]},std=${a["std"]},cid=${a["cid"]} where rollno=${roll}');
-  }
-
   Future<void> deleteDataFromStudentdetailTable(int roll) async{
     Database db = await initDatabase();
     await db.rawQuery('delete from studentdetail where rollno=${roll}');
-  }
-
-  Future< List<Map<String,dynamic>> >getDataFromCityTable() async {
-    Database db = await initDatabase();
-    List<Map<String,dynamic> > city= await db.rawQuery("select * from city");
-    return city;
   }
 }
 
